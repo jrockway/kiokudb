@@ -5,6 +5,10 @@ use Moose;
 
 use Moose::Util::TypeConstraints;
 
+require version;
+class_type 'Version', { class => 'version' };
+coerce 'Str', from 'Version', via { "$_" };
+
 use namespace::clean -except => 'meta';
 
 with qw(MooseX::Clone);
@@ -62,6 +66,7 @@ has class_meta => (
 has class_version => (
     isa => "Str",
     is  => "ro",
+    coerce => 1,
     writer => "_class_version",
     predicate => "has_class_version",
 );
